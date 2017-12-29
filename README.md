@@ -68,9 +68,9 @@ Jar包所在目录： `libs\QQRobotSDK.jar`
 
 安装，然后在`SpQQ机器人`的插件列表中勾选，启动，测试效果。
 
-![image](https://github.com/Specher/SpPluginDemo/blob/master/img/test.png?raw=true)
+![image](./img/test.png)
 
-![image](https://github.com/Specher/SpPluginDemo/blob/master/img/test2.png?raw=true)
+![image](./img/test2.png)
 
 
 ## 更新日志
