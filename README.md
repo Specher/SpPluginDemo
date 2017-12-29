@@ -1,0 +1,3 @@
+# SpPluginDemo
+SpQQ机器人插件功能演示，用于演示和测试插件功能
+SpQQ机器人SDK的Api更新、用法都在此项目中同步更新
