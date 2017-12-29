@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">插件功能演示</string>
+    <string name="description">用来演示api功能</string>
+    <string name="action_exit">退出</string>
+
+</resources>
