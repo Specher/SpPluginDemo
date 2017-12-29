@@ -63,7 +63,14 @@ Jar包所在目录： `libs\QQRobotSDK.jar`
         time 禁言时间 单位秒 最大2592000(30天) 设置为0解除禁言
 
 - 具体实现请看源码
+        
+5.安装测试
 
+安装，然后在`SpQQ机器人`的插件列表中勾选，启动，测试效果。
+
+![image](https://github.com/Specher/SpPluginDemo/blob/master/img/test.png?raw=true)
+
+![image](https://github.com/Specher/SpPluginDemo/blob/master/img/test2.png?raw=true)
 
 
 ## 更新日志
