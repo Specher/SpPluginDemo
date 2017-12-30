@@ -13,6 +13,10 @@ Api更新、用法等都在此项目中同步更新
 
 当前SDK版本v1.0 2017年12月29日
 
+<html>
+<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=7eee5bc7382b96f3a84d578f708f5a70ea9053669760b908605e573f7b5f02b2"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="SpQQ机器人插件开发" title="SpQQ机器人插件开发"></a>
+</html>
+
 ## 功能
 - [x] - 群、好友文本消息收发
 - [x] - 禁言
