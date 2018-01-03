@@ -276,7 +276,7 @@ public class MainActivity extends Activity {
 
 		//构造一个对话框
 		AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
-        builder2.setTitle("禁言测试");
+        builder2.setTitle("取群成员昵称测试");
         View dlgview= getLayoutInflater().inflate(R.layout.testlayout, null);
         builder2.setView(dlgview);
         final AlertDialog alertDialog =  builder2.create();
