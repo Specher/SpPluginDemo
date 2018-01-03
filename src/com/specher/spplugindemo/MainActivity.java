@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.specher.qqrobotsdk.QQRobot;
+import com.specher.qqrobotsdk.data.MessageRecord;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -38,21 +39,38 @@ public class MainActivity extends Activity {
 		//这里为了方便用了匿名内部类，你也可以用独立的外部类来处理
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			// TODO 接收到消息
+		// TODO 接收到消息，注意也会收到自己发送的消息，处理时请过滤自己的QQ
 		int cmd = 	intent.getIntExtra(QQRobot.CMD,0);
 		String qq  = intent.getStringExtra(QQRobot.ACTION_QQ);
 		String group="", member="",msg="";
 		
 		//根据CMD分类消息
 		switch(cmd){
-		case QQRobot.CMD_REC_GROUP_TXTMSG:
+		case QQRobot.CMD_GET_GROUP_MEMBER_NICKNAME://得到群昵称，和下面的参数一样所以共用
+		case QQRobot.CMD_REC_GROUP_TXTMSG :
 		group =	intent.getStringExtra(QQRobot.DEAL_UIN);
 		member = intent.getStringExtra(QQRobot.DEAL_UIN2);
+		//可以直接读取消息文本内容
 		msg = intent.getStringExtra(QQRobot.DEAL_STR);
+		
+		//也通过传递过来的Parcel对象可以解析消息的详细信息
+		 if(intent.hasExtra(QQRobot.ParcelObj)){
+		 MessageRecord messageRecord1  =  (MessageRecord) intent.getSerializableExtra(QQRobot.ParcelObj);
+		//通过msgtype可以判断消息类型的更多信息,比如加群消息
+		 msg = messageRecord1.toString();
+		 }
 			break;
 		case QQRobot.CMD_REC_FRIEND_TXTMSG:	 
 			member = intent.getStringExtra(QQRobot.DEAL_UIN2);
+			//可以直接读取消息文本内容
 			msg = intent.getStringExtra(QQRobot.DEAL_STR);
+			//也通过传递过来的Parcel对象可以解析消息的详细信息
+			if(intent.hasExtra(QQRobot.ParcelObj)){
+			 MessageRecord messageRecord  = (MessageRecord) intent.getSerializableExtra(QQRobot.ParcelObj);
+			 //通过msgtype可以判断消息类型的更多信息,比如加群消息
+			//if( messageRecord.msgtype == messageRecord.MSG_TYPE_TROOP_TIPS_ADD_MEMBER);
+			 msg = messageRecord.toString();
+			 }
 		break;
 		case QQRobot.CMD_GET_CURRENT_NICKNAME:
 			msg = intent.getStringExtra(QQRobot.DEAL_STR);
@@ -216,6 +234,83 @@ public class MainActivity extends Activity {
        alertDialog.show();
 	}
 	
+	
+	//发消息带艾特被点击
+	public void onAtMsgClick(View v){
+		AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
+        builder2.setTitle("艾特测试");
+        View dlgview= getLayoutInflater().inflate(R.layout.testlayout2, null);
+        builder2.setView(dlgview);
+        final AlertDialog alertDialog =  builder2.create();
+        final EditText text1 = (EditText) dlgview.findViewById(R.id.editText1);
+        final EditText text2 = (EditText) dlgview.findViewById(R.id.editText2);
+        final EditText text3 = (EditText) dlgview.findViewById(R.id.editText3);
+        Button btn1 = (Button) dlgview.findViewById(R.id.button1);
+        Button btn2 = (Button) dlgview.findViewById(R.id.button2);
+        btn1.setOnClickListener(new Button.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO 自动生成的方法存根
+				
+					qqrobot.sendGroupTxtWithAT(QQRobot.DEFAULT_ACTION_QQ, text1.getText().toString(), text2.getText().toString(),text3.getText().toString());
+			
+			}
+		});
+        
+        btn2.setOnClickListener(new Button.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO 自动生成的方法存根
+				alertDialog.dismiss();
+			}
+		});
+      
+        
+       alertDialog.show();
+	}
+	
+	// 取群成员昵称被单击
+	public void onGetMemberNickClick(View v){
+
+		//构造一个对话框
+		AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
+        builder2.setTitle("禁言测试");
+        View dlgview= getLayoutInflater().inflate(R.layout.testlayout, null);
+        builder2.setView(dlgview);
+        final AlertDialog alertDialog =  builder2.create();
+        final EditText text1 = (EditText) dlgview.findViewById(R.id.editText1);
+        final EditText text2 = (EditText) dlgview.findViewById(R.id.editText2);
+        text1.setHint("群号");
+        text2.setHint("群成员QQ号");
+        final CheckBox cb1=(CheckBox) dlgview.findViewById(R.id.checkBox1);
+        cb1.setVisibility(View.GONE);
+        Button btn1 = (Button) dlgview.findViewById(R.id.button1);
+        Button btn2 = (Button) dlgview.findViewById(R.id.button2);
+        btn1.setOnClickListener(new Button.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				qqrobot.getGroupMemberNickName(text1.getText().toString(),text2.getText().toString());
+			
+					
+			}
+		});
+        btn2.setOnClickListener(new Button.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+				alertDialog.dismiss();
+			}
+		});
+      
+        
+       alertDialog.show();
+		
+	}
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
