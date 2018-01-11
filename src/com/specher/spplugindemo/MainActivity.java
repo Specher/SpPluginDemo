@@ -43,7 +43,7 @@ public class MainActivity extends Activity {
 		int cmd = 	intent.getIntExtra(QQRobot.CMD,0);
 		String qq  = intent.getStringExtra(QQRobot.ACTION_QQ);
 		String group="", member="",msg="";
-		
+		msg=intent.getExtras().toString();
 		//根据CMD分类消息
 		switch(cmd){
 		case QQRobot.CMD_GET_GROUP_MEMBER_NICKNAME://得到群昵称，和下面的参数一样所以共用
@@ -79,9 +79,8 @@ public class MainActivity extends Activity {
 			msg = intent.getStringExtra(QQRobot.DEAL_STR);
 			break;
 		case QQRobot.CMD_INIT:
-			
 			init = intent.getStringExtra(QQRobot.DEAL_STR);
-			msg = init;
+			msg = init + "当前登录QQ：" + qq;
 			break;
 		}
 		
